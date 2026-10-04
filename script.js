@@ -43,14 +43,24 @@
     if (!animate) { void hl.offsetWidth; hl.classList.remove("no-anim"); }
   }
 
-  function moveNav(animate) { clipTo(linkFor(here), animate); }
+  var intro = false;                      // true while the arrival slide is running
+  function moveNav(animate) {
+    if (!animate && intro) return;        // never snap mid-slide, or the slide is lost
+    clipTo(linkFor(here), animate);
+  }
 
   // On arriving from another page, start the marker where it was and slide it here.
   var from = null;
   try { from = sessionStorage.getItem("ecb-page"); } catch (e) {}
   if (from && from !== here && linkFor(from) && !reduce) {
+    intro = true;
     clipTo(linkFor(from), false);
-    requestAnimationFrame(function () { requestAnimationFrame(function () { moveNav(true); }); });
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        clipTo(linkFor(here), true);
+        setTimeout(function () { intro = false; }, 1000);
+      });
+    });
   } else {
     moveNav(false);
   }
