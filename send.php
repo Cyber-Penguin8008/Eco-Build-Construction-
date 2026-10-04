@@ -10,11 +10,29 @@ $SUBJECT = 'New enquiry from the website';
 
 // ---------------------------------------------------------------- settings end
 
-header('Content-Type: application/json; charset=utf-8');
+// If JavaScript posted the form it asks for JSON; a plain browser post gets a redirect.
+$wantsJson = isset($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false;
+if ($wantsJson) {
+    header('Content-Type: application/json; charset=utf-8');
+}
 
 function stop($code, $message) {
+    global $wantsJson;
     http_response_code($code);
-    echo json_encode(['ok' => false, 'error' => $message]);
+    if ($wantsJson) {
+        echo json_encode(['ok' => false, 'error' => $message]);
+    } else {
+        echo '<!DOCTYPE html><meta charset="utf-8"><title>Message not sent</title>'
+           . '<p style="font:16px system-ui;padding:40px">' . htmlspecialchars($message)
+           . '</p><p style="font:16px system-ui;padding:0 40px"><a href="contact.html">Go back</a></p>';
+    }
+    exit;
+}
+
+function done() {
+    global $wantsJson;
+    if ($wantsJson) { echo json_encode(['ok' => true]); }
+    else { header('Location: thank-you.html', true, 303); }
     exit;
 }
 
@@ -24,8 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 // Honeypot: a field hidden from people. Only robots fill it in.
 if (!empty($_POST['website'])) {
-    echo json_encode(['ok' => true]);   // pretend it worked, send nothing
-    exit;
+    done();   // pretend it worked, send nothing
 }
 
 // Simple rate limit: one message per minute per visitor.
@@ -77,4 +94,4 @@ if (!mail($TO, $SUBJECT, $body, implode("\r\n", $headers))) {
 }
 
 $_SESSION['last_send'] = time();
-echo json_encode(['ok' => true]);
+done();
