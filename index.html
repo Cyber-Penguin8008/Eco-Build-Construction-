@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="dark">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Eco Construction-Build</title>
+<meta name="description" content="Eco Construction-Build: builders covering London and up to 100 miles. Kitchens, bathrooms, tiling, plastering, flooring, carpentry, roofing and painting. Free quotes.">
+<meta property="og:title" content="Eco Construction-Build">
+<meta property="og:description" content="Builders covering London and up to 100 miles. Kitchens, bathrooms, tiling, plastering, flooring, carpentry, roofing and painting.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Barlow:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+:root{
+  --yellow:#F2B705; --ink:#1F2328; --steel:#2E3A45; --concrete:#ECEAE5;
+  --bg:#1A1E22; --text:#ECEAE5; --muted:#A3ABB3; --line:#343B42; --surface:#242A30;
+  --ph:#3A3F44; --ph-text:#777E85;
+  color-scheme:dark;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+.light{--bg:#FFFFFF; --text:#1F2328; --muted:#5A636C; --line:#D9D6CF; --surface:#FFFFFF;
+  --ph:#CFCFCF; --ph-text:#9A9A9A; color-scheme:light; background:#FFFFFF; color:#1F2328}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--text);
+  font-family:"Barlow",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-size:17px;line-height:1.6}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;line-height:1.05;margin:0 0 .5em;font-weight:700}
+h1{font-size:clamp(2.6rem,7vw,5rem)}
+h2{font-size:clamp(2rem,4vw,2.8rem)}
+h3{font-size:1.45rem;font-weight:600}
+p{margin:0 0 1em;max-width:68ch}
+a{color:inherit}
+img{max-width:100%}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.skip{position:absolute;left:-9999px;top:0;z-index:20;background:var(--yellow);color:var(--ink);
+  padding:10px 16px;font-weight:600;text-decoration:none}
+.skip:focus{left:8px;top:8px}
+
+/* Placeholder boxes, like the reference */
+.ph{background:var(--ph);color:var(--ph-text);display:flex;align-items:center;justify-content:center;
+  font-family:"Barlow Condensed",Arial,sans-serif;font-weight:600;font-size:clamp(1rem,3vw,2rem);width:100%}
+.ph::after{content:attr(data-size)}
+
+/* Header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--ink);color:#fff;border-bottom:4px solid var(--yellow)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif}
+.logo svg{width:52px;height:21px;flex:none}
+.logo-text{display:flex;flex-direction:column}
+.logo-text b{font-size:1.9rem;font-weight:700;letter-spacing:2px;line-height:.9}
+.logo-text small{font-size:.68rem;font-weight:600;letter-spacing:2.5px;color:var(--yellow);line-height:1.2}
+footer .logo{margin-bottom:16px}
+nav{position:relative}
+nav ul{list-style:none;margin:0;padding:0;display:flex;gap:4px;flex-wrap:wrap;position:relative;z-index:1}
+nav a{display:block;padding:8px 14px;text-decoration:none;font-weight:600;color:#D5D9DD;transition:color .15s ease}
+nav a{border-radius:1px}
+nav a:hover{color:#fff;box-shadow:0 0 16px rgba(255,255,255,.35);background:rgba(255,255,255,.07)}
+nav a{transition:color .15s ease,box-shadow .25s ease,background-color .25s ease}
+.nav-hl a:hover{box-shadow:none;background:transparent}
+/* Sliding yellow box: a dark-text copy of the menu, shown only inside the box.
+   Starts slow, finishes fast. Text is dark wherever the box is, at every moment. */
+.nav-hl{position:absolute;top:0;left:0;right:0;margin:0;background:var(--yellow);pointer-events:none;z-index:2;
+  clip-path:inset(0 100% 100% 0);transition:clip-path .85s cubic-bezier(.75,0,.25,1);will-change:clip-path}
+.nav-hl a,.nav-hl a:hover{color:var(--ink)}
+.nav-hl.no-anim{transition:none}
+@media (prefers-reduced-motion:reduce){.nav-hl{transition:none}}
+.menu-btn{display:none;background:var(--ink);border:1px solid rgba(255,255,255,.35);color:#fff;padding:6px 12px;font:inherit;font-weight:600;cursor:pointer;transition:background-color .25s ease,color .25s ease,border-color .25s ease}
+.menu-btn:hover,.menu-btn:focus-visible{background:var(--yellow);border-color:var(--yellow);color:var(--ink)}
+@media (max-width:760px){
+  .menu-btn{display:block}
+  nav{display:none;width:100%;padding-bottom:12px}
+  nav.open{display:block}
+  nav ul{flex-direction:column}
+  .bar{flex-wrap:wrap}
+}
+
+/* Page switching */
+.page{display:none}
+.page.active{display:block}
+section{padding:72px 0}
+.alt{background:var(--surface)}
+
+/* Hero */
+.hero{position:relative;height:min(75vh,600px);overflow:hidden;background:var(--ink)}
+.slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .9s ease,visibility .9s}
+.slide.active{opacity:1;visibility:visible}
+.slide .ph{height:100%}
+.slide img{display:block;width:100%;height:100%;object-fit:cover}
+.hero-copy{position:absolute;left:0;right:0;bottom:56px}
+.hero-copy .inner{background:rgba(31,35,40,.35);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:#fff;padding:20px 24px;max-width:440px;border-left:6px solid var(--yellow);
+  transform:translateY(16px);opacity:0;transition:transform .7s ease .3s,opacity .7s ease .3s}
+.slide.active .hero-copy .inner{transform:none;opacity:1}
+.hero-copy p{color:#C9CED3;font-size:.95rem;margin-bottom:14px}
+.hero-copy h1,.hero-copy h2{font-size:clamp(1.8rem,3.2vw,2.5rem);margin-bottom:.3em}
+.hero-copy .btn{padding:9px 18px;font-size:.95rem}
+.slide::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(to top right,rgba(20,24,28,.65),rgba(20,24,28,.3))}
+.hero-copy{z-index:2}
+.car-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:48px;height:48px;border:0;cursor:pointer;
+  background:rgba(31,35,40,.85);color:#fff;font-size:1.6rem;line-height:1;display:flex;align-items:center;justify-content:center}
+.car-btn:hover{background:var(--yellow);color:var(--ink)}
+.car-btn.prev{left:12px}.car-btn.next{right:12px}
+.dots{position:absolute;bottom:20px;left:0;right:0;z-index:2;display:flex;justify-content:center;gap:10px}
+.dots button{width:36px;height:6px;padding:0;border:0;cursor:pointer;background:rgba(255,255,255,.45)}
+.dots button[aria-current="true"]{background:var(--yellow)}
+@media (max-width:760px){
+  .hero-copy .inner{padding:16px 18px;max-width:none}
+  .hero-copy h1,.hero-copy h2{font-size:1.7rem}
+  .car-btn{top:auto;bottom:8px;transform:none;width:40px;height:40px}
+}
+@media (prefers-reduced-motion:reduce){.slide,.hero-copy .inner{transition:none}}
+.page-head{background:var(--ink);color:#fff;padding:64px 0 48px;border-bottom:4px solid var(--yellow)}
+.page-head p{color:#C9CED3;margin:0}
+
+/* Buttons */
+/* One button style everywhere: dark at rest, yellow on hover */
+/* One button style everywhere: yellow at rest, dark on hover, yellow glow throughout */
+.btn{display:inline-block;padding:12px 22px;background:var(--yellow);color:var(--ink);font:inherit;font-weight:600;text-decoration:none;
+  border:1px solid var(--yellow);cursor:pointer;box-shadow:0 4px 14px rgba(242,183,5,.35);
+  transition:background-color .25s ease,color .25s ease,border-color .25s ease,box-shadow .25s ease}
+.btn:hover,.btn:focus-visible{background:var(--ink);color:#fff;border-color:var(--ink);box-shadow:0 8px 22px rgba(242,183,5,.6)}
+/* Soft shadow on hover, for every button */
+.btn,.filters button,.menu-btn,.car-btn{transition:background-color .2s ease,color .2s ease,border-color .2s ease,box-shadow .2s ease,transform .2s ease}
+.menu-btn:hover,.car-btn:hover{box-shadow:0 6px 18px rgba(242,183,5,.45)}
+
+
+/* Grids */
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+@media (max-width:860px){.g3{grid-template-columns:1fr 1fr}.split{grid-template-columns:1fr}}
+@media (max-width:560px){.g2,.g3{grid-template-columns:1fr}}
+
+/* Mosaic, echoing the reference layout */
+.mosaic{display:grid;grid-template-columns:140fr 200fr;gap:16px}
+.mosaic .a{grid-column:1/-1;aspect-ratio:350/150}
+.mosaic img{display:block;width:100%;height:100%;object-fit:cover}
+.mosaic .b{aspect-ratio:140/100}
+.mosaic .c{aspect-ratio:200/100}
+.mosaic .d{grid-column:1/-1;aspect-ratio:350/65}
+
+.service{border-top:4px solid var(--yellow);padding-top:18px}
+.service .ph,.service img{aspect-ratio:4/3;margin-bottom:16px}
+.service img{display:block;width:100%;object-fit:cover}
+.service p{color:var(--muted)}
+.service-ask{background:var(--ink);color:#fff;padding:28px 24px;display:flex;flex-direction:column;justify-content:center}
+.service-ask p{color:#C9CED3}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:left}
+.stats b{display:block;font-family:"Barlow Condensed",Arial,sans-serif;font-size:2rem;line-height:1.1;margin-bottom:6px;color:var(--text);border-left:6px solid var(--yellow);padding-left:12px}
+.stats span{color:var(--muted)}
+@media (max-width:760px){.stats{grid-template-columns:1fr 1fr}}
+.dark{background:var(--steel);color:#fff}
+
+.project figure{margin:0}
+.project .ph,.project img{aspect-ratio:3/2}
+.project img{display:block;width:100%;object-fit:cover}
+.project figcaption{padding:12px 0}
+.project small{color:var(--muted)}
+.filters{position:relative;display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.filters button{font:inherit;font-weight:600;padding:8px 16px;background:var(--ink);color:#fff;border:1px solid rgba(255,255,255,.18);cursor:pointer;
+  transition:background-color .25s ease,color .25s ease,border-color .25s ease,box-shadow .25s ease}
+/* Hover: the tab lifts and lightens, so it is clearly different from the yellow active tab */
+.filters button:not([aria-pressed="true"]):hover,.filters button:not([aria-pressed="true"]):focus-visible{
+  background:var(--steel);border-color:rgba(255,255,255,.45);transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(31,35,40,.45)}
+.filters button:not([aria-pressed="true"]):active{transform:translateY(0);box-shadow:0 3px 8px rgba(31,35,40,.4)}
+.filters button[aria-pressed="true"]{box-shadow:0 8px 30px 6px rgba(31,35,40,.3)}
+/* Sliding yellow marker: a copy of the tabs, revealed only over the active one */
+.filters-hl{position:absolute;top:0;left:0;right:0;z-index:2;display:flex;gap:8px;flex-wrap:wrap;pointer-events:none;
+  clip-path:inset(0 100% 100% 0);transition:clip-path .85s cubic-bezier(.75,0,.25,1)}
+.filters-hl button{background:var(--yellow);border-color:var(--yellow);color:var(--ink);box-shadow:0 8px 30px 6px rgba(31,35,40,.3)}
+.filters-hl button:hover{box-shadow:0 8px 30px 6px rgba(31,35,40,.3)}
+.filters-hl.no-anim{transition:none}
+@media (prefers-reduced-motion:reduce){.filters-hl{transition:none}}
+
+.team .ph,.team img{aspect-ratio:1/1;margin-bottom:12px}
+.team img{display:block;width:100%;object-fit:cover}
+.team small{color:var(--muted)}
+
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.steps li{list-style:none;border-top:3px solid var(--yellow);padding-top:14px}
+.steps li::before{counter-increment:s;content:"Step " counter(s);display:block;font-weight:600;color:var(--muted);margin-bottom:6px}
+.steps{padding:0;margin:0}
+@media (max-width:760px){.steps{grid-template-columns:1fr 1fr}}
+
+form{display:grid;gap:14px}
+label{display:grid;gap:6px;font-weight:600}
+input,textarea,select{font:inherit;padding:12px;border:2px solid var(--line);background:var(--bg);color:var(--text);width:100%}
+textarea{min-height:140px;resize:vertical}
+.note{color:var(--muted);font-weight:500}
+.contact-list{list-style:none;padding:0;margin:0 0 24px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.contact-list li{padding:12px 0;border-bottom:1px solid var(--line)}
+.contact-list a{text-decoration:none;border-bottom:1px solid var(--line);transition:color .2s ease,border-color .2s ease}
+.contact-list a:hover{color:var(--ink);border-color:var(--yellow)}
+.contact-list b{display:block}
+.map-wrap{margin-top:8px}
+.map{aspect-ratio:16/7;width:100%;border:0;display:block;filter:grayscale(.35) contrast(1.05)}
+.map-note{margin:8px 0 0;font-size:.9rem}
+
+.cta{background:var(--yellow);color:var(--ink)}
+.cta .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.cta h2{margin:0}
+.cta .btn{background:var(--ink);color:#fff;border-color:var(--ink);box-shadow:0 4px 14px rgba(0,0,0,.2)}
+.cta .btn:hover,.cta .btn:focus-visible{background:var(--yellow);color:var(--ink);border-color:var(--ink);box-shadow:0 8px 22px rgba(0,0,0,.45)}
+
+footer{background:var(--ink);color:#C9CED3;padding:48px 0 32px;font-size:.95rem}
+footer .grid{grid-template-columns:2fr 1fr 1fr}
+footer h3{color:#fff;font-size:1.2rem}
+footer ul{list-style:none;margin:0;padding:0}
+footer a{text-decoration:none;transition:color .2s ease,text-shadow .25s ease}
+footer a:hover{color:#fff;text-shadow:0 0 12px rgba(255,255,255,.6)}
+.legal{border-top:1px solid #343B42;margin-top:32px;padding-top:20px}
+@media (max-width:760px){footer .grid{grid-template-columns:1fr}}
+/* Slide in on scroll */
+.reveal{opacity:0;transform:translateX(var(--from,0)) translateY(var(--fromY,24px));
+  transition:opacity .9s ease,transform .9s cubic-bezier(.22,.61,.36,1)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="#home" aria-label="Eco Construction-Build, home"><svg viewBox="0 0 132 52" aria-hidden="true"><rect x="92" y="8" width="12" height="22" fill="#F2B705"></rect><polyline points="8,46 66,8 124,46" fill="none" stroke="#F2B705" stroke-width="11" stroke-linecap="square" stroke-linejoin="miter"></polyline></svg><span class="logo-text"><b>ECO</b><small>CONSTRUCTION-BUILD</small></span></a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" aria-label="Main">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+<!-- HOME -->
+<div class="page" id="page-home">
+  <div class="hero" id="carousel" aria-roledescription="carousel" aria-label="Highlights">
+    <div class="slide active" role="group" aria-roledescription="slide" aria-label="1 of 4">
+      <img src="images/a-large-family-house-with-lit-windows-at-dusk.jpg" width="1920" height="1282" alt="A large family house with lit windows at dusk" style="object-position:center 35%">
+      <div class="hero-copy"><div class="wrap"><div class="inner">
+        <h1>We build homes that last</h1>
+        <p>From the foundations to the final coat of paint, we manage every stage of your build with skilled trades and clear communication.</p>
+        <a class="btn" href="#contact">Get a free quote</a>
+      </div></div></div>
+    </div>
+    <div class="slide" role="group" aria-roledescription="slide" aria-label="2 of 4">
+      <img src="images/a-bright-renovated-kitchen-with-blue-cabinets-and-a-.jpg" width="1920" height="1280" loading="lazy" decoding="async" alt="A bright renovated kitchen with blue cabinets and a marble floor" style="object-position:center 45%">
+      <div class="hero-copy"><div class="wrap"><div class="inner">
+        <h2>Renovations done with care</h2>
+        <p>We treat your home as if it were our own: dust sheets down, a tidy site, and a finish you will be proud of.</p>
+        <a class="btn" href="#services">Our services</a>
+      </div></div></div>
+    </div>
+    <div class="slide" role="group" aria-roledescription="slide" aria-label="3 of 4">
+      <img src="images/two-roofers-laying-clay-tiles-on-a-house-under-a-blu.jpg" width="1920" height="1280" loading="lazy" decoding="async" alt="Two roofers laying clay tiles on a house under a blue sky" style="object-position:center 25%">
+      <div class="hero-copy"><div class="wrap"><div class="inner">
+        <h2>Strong roofs, safe homes</h2>
+        <p>New roofs, repairs and replacements by experienced roofers, so your home stays dry and secure for years to come.</p>
+        <a class="btn" href="#projects">See our work</a>
+      </div></div></div>
+    </div>
+    <div class="slide" role="group" aria-roledescription="slide" aria-label="4 of 4">
+      <img src="images/two-smiling-workers-in-white-overalls.jpg" width="1920" height="1280" loading="lazy" decoding="async" alt="Two smiling workers in white overalls" style="object-position:center 20%">
+      <div class="hero-copy"><div class="wrap"><div class="inner">
+        <h2>Honest work, fair prices</h2>
+        <p>Clear, written quotes with no hidden costs. You will always know what is being done, and what it will cost.</p>
+        <a class="btn" href="#about">About us</a>
+      </div></div></div>
+    </div>
+    <button class="car-btn prev" aria-label="Previous slide">&#8249;</button>
+    <button class="car-btn next" aria-label="Next slide">&#8250;</button>
+    <div class="dots"></div>
+  </div>
+
+  <section class="light">
+    <div class="wrap split">
+      <div>
+        <h2>Built right, the first time</h2>
+        <p>Eco Construction-Build brings skilled, trusted tradespeople together as one team. Whether you are building a new home, renovating a kitchen or replacing a roof, we plan the work carefully and manage it from start to finish.</p>
+        <p>You get one point of contact, a clear timeline and a site kept clean and safe every day. We plan carefully to waste less, and we choose quality materials that are made to last.</p>
+        <a class="btn" href="#about">About us</a>
+      </div>
+      <div class="mosaic">
+        <img class="a" src="images/a-floor-plan-on-a-desk-with-a-tape-measure-and-a-pen.jpg" width="1200" height="514" loading="lazy" decoding="async" alt="A floor plan on a desk with a tape measure and a pen">
+        <img class="b" src="images/a-builder-in-a-hard-hat-checking-a-wall-with-a-yello.jpg" width="598" height="427" loading="lazy" decoding="async" alt="A builder in a hard hat checking a wall with a yellow spirit level">
+        <img class="c" src="images/hands-measuring-a-wooden-plank-with-a-tape-measure-o.jpg" width="640" height="320" loading="lazy" decoding="async" alt="Hands measuring a wooden plank with a tape measure on a workbench">
+        <img class="d" src="images/a-red-brick-wall.jpg" width="640" height="119" loading="lazy" decoding="async" alt="A red brick wall">
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <h2>What we do</h2>
+      <div class="grid g3" style="margin-top:28px">
+        <div class="service"><img src="images/a-fitted-kitchen-with-grey-units-and-a-marble-workto.jpg" width="1000" height="750" loading="lazy" decoding="async" alt="A fitted kitchen with grey units and a marble worktop"><h3>Kitchens</h3><p>Kitchen fitting from start to finish: units, worktops, plumbing, tiling and flooring.</p></div>
+        <div class="service"><img src="images/a-tiled-bathroom-with-a-glass-shower-enclosure.jpg" width="1000" height="750" loading="lazy" decoding="async" alt="A tiled bathroom with a glass shower enclosure"><h3>Bathrooms</h3><p>Complete bathroom fitting, from plumbing and tiling to the final finishing touches.</p></div>
+        <div class="service"><img src="images/the-tiled-gable-end-of-a-house-against-a-blue-sky.jpg" width="1000" height="750" loading="lazy" decoding="async" alt="The tiled gable end of a house against a blue sky"><h3>Roofing</h3><p>New roofs, repairs and replacements that keep your home dry, warm and protected.</p></div>
+      </div>
+      <p style="margin-top:24px"><a class="btn" href="#services">See all services</a></p>
+    </div>
+  </section>
+
+  <section class="light">
+    <div class="wrap stats">
+      <div><b>Insured</b><span>Covered for the work we carry out.</span></div>
+      <div><b>One team</b><span>One point of contact for every trade.</span></div>
+      <div><b>Tidy sites</b><span>Cleared and made safe at the end of every day.</span></div>
+      <div><b>Built to last</b><span>Quality materials and careful workmanship.</span></div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <h2>Recent projects</h2>
+      <div class="grid g3" style="margin-top:28px">
+        <div class="project"><figure><img src="images/an-open-plan-timber-living-room-with-a-mezzanine-abo.jpg" width="640" height="427" loading="lazy" decoding="async" alt="An open-plan timber living room with a mezzanine above"><figcaption><h3>Two-storey family home</h3><small>Residential</small></figcaption></figure></div>
+        <div class="project"><figure><img src="images/a-refurbished-open-plan-office-with-desks-and-partit.jpg" width="626" height="417" loading="lazy" decoding="async" alt="A refurbished open-plan office with desks and partitions"><figcaption><h3>Office refurbishment</h3><small>Commercial</small></figcaption></figure></div>
+        <div class="project"><figure><img src="images/a-modern-kitchen-with-white-and-dark-grey-units.jpg" width="720" height="480" loading="lazy" decoding="async" alt="A modern kitchen with white and dark grey units"><figcaption><h3>Kitchen renovation</h3><small>Renovation</small></figcaption></figure></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ABOUT -->
+<div class="page" id="page-about">
+  <div class="page-head"><div class="wrap"><h1>About us</h1><p>Working across London since 2022, built on skilled people, careful planning and honest work.</p></div></div>
+  <section class="light">
+    <div class="wrap split">
+      <img style="aspect-ratio:4/3;display:block;width:100%;object-fit:cover" src="images/three-people-in-hard-hats-studying-building-plans-to.jpg" width="1100" height="825" loading="lazy" decoding="async" alt="Three people in hard hats studying building plans together">
+      <div>
+        <h2>Our story</h2>
+        <p>Eco Construction-Build was founded in 2022 by Gayrat Ergashev, a builder who believes every job deserves to be done properly. Since then he has brought together a team of trusted tradespeople, from plumbers and plasterers to tilers, carpenters, roofers and decorators.</p>
+        <p>Gayrat manages each project personally and brings in the right specialists at the right time. The result is work that runs smoothly, finishes cleanly and lasts.</p>
+      </div>
+    </div>
+  </section>
+  <section class="alt">
+    <div class="wrap">
+      <h2>What we believe</h2>
+      <div class="grid g3" style="margin-top:28px">
+        <div class="service"><h3>Safety</h3><p>Safe sites protect our team, our clients and their families. We never cut corners on safety.</p></div>
+        <div class="service"><h3>Quality</h3><p>Reliable materials, skilled hands, and a careful check of every job before we call it finished.</p></div>
+        <div class="service"><h3>Honest prices</h3><p>Our quotes are clear and itemised. If anything needs to change, we talk to you first.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="light">
+    <div class="wrap">
+      <h2>Our team</h2>
+      <div class="grid g3 team" style="margin-top:28px">
+      <div><img src="images/a-plasterer-smiling-while-working-on-a-wall.jpg" width="640" height="640" loading="lazy" decoding="async" alt="A plasterer smiling while working on a wall"></div>
+      <div><img src="images/two-site-workers-checking-plans-on-a-clipboard.jpg" width="427" height="427" loading="lazy" decoding="async" alt="Two site workers checking plans on a clipboard"></div>
+      <div><img src="images/a-carpenter-shaping-wood-with-a-chisel.jpg" width="427" height="427" loading="lazy" decoding="async" alt="A carpenter shaping wood with a chisel"></div>
+    </div>
+    </div>
+  </section>
+</div>
+
+<!-- SERVICES -->
+<div class="page" id="page-services">
+  <div class="page-head"><div class="wrap"><h1>Services</h1><p>Everything your home needs, from fresh paint to a new roof, managed by one trusted team.</p></div></div>
+  <section class="light">
+    <div class="wrap grid g3">
+      <div class="service"><img src="images/a-paint-roller-and-tray-with-orange-paint-on-a-dust-.jpg" width="640" height="480" loading="lazy" decoding="async" alt="A paint roller and tray with orange paint on a dust sheet"><h3>Painting</h3><p>Interior and exterior painting and decorating, with careful preparation for a clean, lasting finish.</p></div>
+      <div class="service"><img src="images/plumbing-hoses-a-tap-and-a-wrench-laid-on-a-floor-pl.jpg" width="569" height="427" loading="lazy" decoding="async" alt="Plumbing hoses, a tap and a wrench laid on a floor plan"><h3>Plumbing</h3><p>New pipework, taps, sinks, toilets and showers fitted, and leaks found and repaired.</p></div>
+      <div class="service"><img src="images/a-worker-sanding-a-newly-boarded-ceiling.jpg" width="569" height="427" loading="lazy" decoding="async" alt="A worker sanding a newly boarded ceiling"><h3>Plasterboard</h3><p>Plasterboard walls, partitions and ceilings, put up straight, solid and ready to finish.</p></div>
+      <div class="service"><img src="images/a-plasterer-on-stilts-smoothing-a-wall.jpg" width="640" height="480" loading="lazy" decoding="async" alt="A plasterer on stilts smoothing a wall"><h3>Plastering</h3><p>Smooth skim coats and full replastering for walls and ceilings, ready for paint.</p></div>
+      <div class="service"><img src="images/a-bathroom-with-marble-wall-tiles-and-a-patterned-ti.jpg" width="1000" height="750" loading="lazy" decoding="async" alt="A bathroom with marble wall tiles and a patterned tiled floor"><h3>Tiling</h3><p>Wall and floor tiling for kitchens, bathrooms and hallways, laid neatly and sealed to last.</p></div>
+      <div class="service"><img src="images/an-empty-room-with-a-polished-wooden-floor.jpg" width="569" height="427" loading="lazy" decoding="async" alt="An empty room with a polished wooden floor"><h3>Flooring</h3><p>Carpet and parquet flooring, fitted with care for a smooth, even finish.</p></div>
+      <div class="service"><img src="images/a-finished-bathroom-with-a-glass-shower-and-marble-t.jpg" width="1000" height="750" loading="lazy" decoding="async" alt="A finished bathroom with a glass shower and marble tiles"><h3>Bathrooms</h3><p>Complete bathroom fitting, from plumbing and tiling to the final finishing touches.</p></div>
+      <div class="service"><img src="images/a-white-fitted-kitchen-with-built-in-oven-and-extrac.jpg" width="640" height="480" loading="lazy" decoding="async" alt="A white fitted kitchen with built-in oven and extractor"><h3>Kitchens</h3><p>Kitchen fitting from start to finish: units, worktops, plumbing, tiling and flooring.</p></div>
+      <div class="service"><img src="images/a-timber-front-door-and-windows-in-a-stone-porch.jpg" width="569" height="427" loading="lazy" decoding="async" alt="A timber front door and windows in a stone porch"><h3>Windows and doors</h3><p>New windows and doors fitted securely, for a warmer, safer and better-looking home.</p></div>
+      <div class="service"><img src="images/hand-tools-and-a-saw-blade-laid-out-on-a-dark-surfac.jpg" width="569" height="427" loading="lazy" decoding="async" alt="Hand tools and a saw blade laid out on a dark surface"><h3>Carpentry</h3><p>Skirting boards, door frames, shelving and custom woodwork, made and fitted with care.</p></div>
+      <div class="service"><img src="images/a-tiled-roof-with-dormer-windows.jpg" width="565" height="424" loading="lazy" decoding="async" alt="A tiled roof with dormer windows"><h3>Roofing</h3><p>Pitched and flat roofs, repairs and full replacements, carried out by experienced roofers.</p></div>
+      <div class="service service-ask"><h3>Something else?</h3><p>Not sure which service you need? Tell us about your project and we will advise you.</p><p><a class="btn" href="#contact">Ask us</a></p></div>
+    </div>
+  </section>
+  <section class="alt">
+    <div class="wrap">
+      <h2>How we work</h2>
+      <ol class="steps" style="margin-top:28px">
+        <li><h3>Talk</h3><p>Tell us what you have in mind. We visit, listen and look at the space.</p></li>
+        <li><h3>Plan</h3><p>We send a clear, written quote with costs, materials and a timeline.</p></li>
+        <li><h3>Build</h3><p>Our team gets to work, keeps the site tidy and updates you as we go.</p></li>
+        <li><h3>Hand over</h3><p>We walk through the finished work with you and put right anything that is not perfect.</p></li>
+      </ol>
+    </div>
+  </section>
+</div>
+
+<!-- PROJECTS -->
+<div class="page" id="page-projects">
+  <div class="page-head"><div class="wrap"><h1>Projects</h1><p>A selection of homes and buildings we have built, renovated and repaired.</p></div></div>
+  <section class="light">
+    <div class="wrap">
+      <div class="filters" role="group" aria-label="Filter projects">
+        <button aria-pressed="true" data-f="all">All</button>
+        <button aria-pressed="false" data-f="kit">Kitchens</button>
+        <button aria-pressed="false" data-f="bath">Bathrooms</button>
+        <button aria-pressed="false" data-f="bed">Bedrooms</button>
+        <button aria-pressed="false" data-f="liv">Living spaces</button>
+        <button aria-pressed="false" data-f="loft">Lofts</button>
+        <button aria-pressed="false" data-f="int">Interiors</button>
+        </div>
+      <div class="grid g3" id="project-grid">
+        <div class="project" data-c="kit"><figure><img src="images/a-grey-shaker-kitchen-with-a-brass-tap-and-white-wor.jpg" width="720" height="480" loading="lazy" decoding="async" alt="A grey shaker kitchen with a brass tap and white worktop"><figcaption><h3>Shaker kitchen in grey</h3><small>Kitchens</small></figcaption></figure></div>
+        <div class="project" data-c="kit"><figure><img src="images/a-kitchen-with-dark-walnut-units-and-white-gloss-wal.jpg" width="810" height="540" loading="lazy" decoding="async" alt="A kitchen with dark walnut units and white gloss wall cupboards"><figcaption><h3>Walnut and gloss kitchen</h3><small>Kitchens</small></figcaption></figure></div>
+        <div class="project" data-c="bath"><figure><img src="images/a-black-and-white-marble-bathroom-with-a-round-mirro.jpg" width="1000" height="667" loading="lazy" decoding="async" alt="A black and white marble bathroom with a round mirror"><figcaption><h3>Monochrome marble bathroom</h3><small>Bathrooms</small></figcaption></figure></div>
+        <div class="project" data-c="bath"><figure><img src="images/a-bathroom-with-wood-effect-panelling-and-a-black-fr.jpg" width="1000" height="667" loading="lazy" decoding="async" alt="A bathroom with wood-effect panelling and a black-framed shower"><figcaption><h3>Wood-panel bathroom</h3><small>Bathrooms</small></figcaption></figure></div>
+        <div class="project" data-c="bath"><figure><img src="images/a-marble-bathroom-with-gold-fittings-and-a-gold-fram.jpg" width="1000" height="666" loading="lazy" decoding="async" alt="A marble bathroom with gold fittings and a gold-framed mirror"><figcaption><h3>Gold and marble bathroom</h3><small>Bathrooms</small></figcaption></figure></div>
+        <div class="project" data-c="bath"><figure><img src="images/a-grey-tiled-bathroom-with-a-corner-bath-and-a-lit-m.jpg" width="1000" height="667" loading="lazy" decoding="async" alt="A grey tiled bathroom with a corner bath and a lit mirror"><figcaption><h3>Grey bathroom with corner bath</h3><small>Bathrooms</small></figcaption></figure></div>
+        <div class="project" data-c="int"><figure><img src="images/an-ornate-plaster-ceiling-with-a-chandelier.jpg" width="736" height="491" loading="lazy" decoding="async" alt="An ornate plaster ceiling with a chandelier"><figcaption><h3>Decorative plaster ceiling</h3><small>Interiors</small></figcaption></figure></div>
+        <div class="project" data-c="int"><figure><img src="images/a-room-with-beige-wall-panelling-and-a-recessed-lit-.jpg" width="1000" height="667" loading="lazy" decoding="async" alt="A room with beige wall panelling and a recessed, lit ceiling"><figcaption><h3>Panelled walls and lit ceiling</h3><small>Interiors</small></figcaption></figure></div>
+        <div class="project" data-c="bed"><figure><img src="images/a-child-s-bedroom-with-two-white-beds-and-a-chalkboa.jpg" width="640" height="427" loading="lazy" decoding="async" alt="A child's bedroom with two white beds and a chalkboard"><figcaption><h3>Children's bedroom</h3><small>Bedrooms</small></figcaption></figure></div>
+        <div class="project" data-c="bed"><figure><img src="images/a-child-s-bedroom-with-a-lit-fitted-wardrobe-and-a-m.jpg" width="640" height="427" loading="lazy" decoding="async" alt="A child's bedroom with a lit fitted wardrobe and a mural wall"><figcaption><h3>Child's room with fitted wardrobe</h3><small>Bedrooms</small></figcaption></figure></div>
+        <div class="project" data-c="bed"><figure><img src="images/a-bedroom-with-white-fitted-wardrobes-and-built-in-s.jpg" width="640" height="427" loading="lazy" decoding="async" alt="A bedroom with white fitted wardrobes and built-in shelving"><figcaption><h3>Bedroom with fitted wardrobes</h3><small>Bedrooms</small></figcaption></figure></div>
+        <div class="project" data-c="liv"><figure><img src="images/a-dining-area-with-a-white-table-and-pendant-lights.jpg" width="640" height="427" loading="lazy" decoding="async" alt="A dining area with a white table and pendant lights"><figcaption><h3>Dining area</h3><small>Living spaces</small></figcaption></figure></div>
+        <div class="project" data-c="liv"><figure><img src="images/a-living-room-with-a-stone-fireplace-and-built-in-sh.jpg" width="640" height="427" loading="lazy" decoding="async" alt="A living room with a stone fireplace and built-in shelving"><figcaption><h3>Living room with fireplace</h3><small>Living spaces</small></figcaption></figure></div>
+        <div class="project" data-c="liv"><figure><img src="images/an-empty-reception-room-with-grey-walls-and-a-dark-w.jpg" width="640" height="427" loading="lazy" decoding="async" alt="An empty reception room with grey walls and a dark wood floor"><figcaption><h3>Reception room, newly finished</h3><small>Living spaces</small></figcaption></figure></div>
+        <div class="project" data-c="liv"><figure><img src="images/a-small-home-office-with-a-desk-by-the-window.jpg" width="640" height="427" loading="lazy" decoding="async" alt="A small home office with a desk by the window"><figcaption><h3>Home office</h3><small>Living spaces</small></figcaption></figure></div>
+        <div class="project" data-c="liv"><figure><img src="images/a-lounge-with-a-marble-feature-wall-and-round-wall-l.jpg" width="640" height="427" loading="lazy" decoding="async" alt="A lounge with a marble feature wall and round wall lights"><figcaption><h3>Lounge with feature wall</h3><small>Living spaces</small></figcaption></figure></div>
+        <div class="project" data-c="loft"><figure><img src="images/an-open-plan-loft-with-roof-windows-a-kitchen-island.jpg" width="640" height="427" loading="lazy" decoding="async" alt="An open-plan loft with roof windows, a kitchen island and a sitting area"><figcaption><h3>Loft conversion, open-plan living</h3><small>Lofts</small></figcaption></figure></div>
+        <div class="project" data-c="loft"><figure><img src="images/a-loft-bedroom-with-a-sloped-white-timber-ceiling.jpg" width="640" height="427" loading="lazy" decoding="async" alt="A loft bedroom with a sloped white timber ceiling"><figcaption><h3>Loft bedroom</h3><small>Lofts</small></figcaption></figure></div>
+        <div class="project" data-c="int"><figure><img src="images/a-double-height-timber-hallway-with-an-open-staircas.jpg" width="640" height="427" loading="lazy" decoding="async" alt="A double-height timber hallway with an open staircase"><figcaption><h3>Timber hallway and staircase</h3><small>Interiors</small></figcaption></figure></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- CONTACT -->
+<div class="page" id="page-contact">
+  <div class="page-head"><div class="wrap"><h1>Contact</h1><p>Tell us about your project. We will get back to you with advice and a free quote.</p></div></div>
+  <section class="light">
+    <div class="wrap split" style="align-items:start">
+      <div>
+        <h2>Call or email us</h2>
+        <ul class="contact-list">
+          <li><b>Areas we cover</b>London and up to 100 miles</li>
+          <li><b>Phone</b><a href="tel:+447593003090">07593 003090</a><br><a href="tel:+447495957777">07495 957777</a></li>
+          <li><b>Email</b><a href="mailto:ecoconstruction.build@gmail.com">ecoconstruction.build@gmail.com</a></li>
+          <li><b>Hours</b>7:30am to 5:30pm</li>
+        </ul>
+        <div class="map-wrap">
+          <iframe class="map" title="Map of the area we cover" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-0.52%2C51.26%2C0.36%2C51.72&amp;layer=mapnik"></iframe>
+          <p class="note map-note">We work across London and travel up to 100 miles for larger projects.</p>
+        </div>
+      </div>
+      <form id="contact-form" action="send.php" method="post">
+        <h2>Ask for a quote</h2>
+        <p class="hp" aria-hidden="true"><label>Leave this field empty<input name="website" tabindex="-1" autocomplete="off"></label></p>
+        <label>Your name<input name="name" required autocomplete="name"></label>
+        <label>Email<input type="email" name="email" required autocomplete="email"></label>
+        <label>Service
+          <select name="service"><option>Painting</option><option>Plumbing</option><option>Plasterboard</option><option>Plastering</option><option>Tiling</option><option>Flooring</option><option>Bathrooms</option><option>Kitchens</option><option>Windows and doors</option><option>Carpentry</option><option>Roofing</option><option>Other</option></select>
+        </label>
+        <label>Message<textarea name="message"></textarea></label>
+        <div><button class="btn" type="submit">Send message</button></div>
+        <p class="note" id="form-note" role="status"></p>
+      </form>
+    </div>
+  </section>
+</div>
+</main>
+
+<section class="cta">
+  <div class="wrap"><h2>Ready to start your project?</h2><a class="btn" href="#contact">Get a free quote</a></div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="grid">
+      <div><a class="logo" href="#home" aria-label="Eco Construction-Build, home"><svg viewBox="0 0 132 52" aria-hidden="true"><rect x="92" y="8" width="12" height="22" fill="#F2B705"></rect><polyline points="8,46 66,8 124,46" fill="none" stroke="#F2B705" stroke-width="11" stroke-linecap="square" stroke-linejoin="miter"></polyline></svg><span class="logo-text"><b>ECO</b><small>CONSTRUCTION-BUILD</small></span></a><p>A building company bringing skilled trades together to build,<br>renovate and repair homes that last.</p></div>
+      <div><h3>Pages</h3><ul><li><a href="#home">Home</a></li><li><a href="#about">About</a></li><li><a href="#services">Services</a></li><li><a href="#projects">Projects</a></li><li><a href="#contact">Contact</a></li></ul></div>
+      <div><h3>Contact</h3><ul><li><a href="tel:+447593003090">07593 003090</a></li><li><a href="tel:+447495957777">07495 957777</a></li><li><a href="mailto:ecoconstruction.build@gmail.com">ecoconstruction.build@gmail.com</a></li></ul></div>
+    </div>
+    <div class="legal">© 2026 ECO CONSTRUCTION-BUILD · Company number 14472685 · All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pages=["home","about","services","projects","contact"];
+  var nav=document.getElementById("nav"), btn=document.querySelector(".menu-btn");
+  // Sliding menu box
+  var ind=nav.querySelector("ul").cloneNode(true);
+  ind.classList.add("nav-hl"); ind.setAttribute("aria-hidden","true");
+  ind.querySelectorAll("a").forEach(function(a){a.setAttribute("tabindex","-1")});
+  nav.appendChild(ind);
+  var started=false;
+  function moveInd(animate){
+    var a=nav.querySelector('a[aria-current="page"]');
+    if(!a||getComputedStyle(nav).display==="none") return;
+    var cr=ind.getBoundingClientRect(), ar=a.getBoundingClientRect();
+    if(!animate) ind.classList.add("no-anim");
+    ind.style.clipPath="inset("+(ar.top-cr.top)+"px "+(cr.right-ar.right)+"px "+(cr.bottom-ar.bottom)+"px "+(ar.left-cr.left)+"px)";
+    if(!animate){ ind.offsetWidth; ind.classList.remove("no-anim"); }
+  }
+  window.addEventListener("resize",function(){moveInd(false)});
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){moveInd(false)});
+  function show(){
+    var id=(location.hash||"#home").slice(1);
+    if(pages.indexOf(id)<0) id="home";
+    pages.forEach(function(p){document.getElementById("page-"+p).classList.toggle("active",p===id)});
+    nav.querySelectorAll("a").forEach(function(a){
+      if(a.getAttribute("href")==="#"+id) a.setAttribute("aria-current","page");
+      else a.removeAttribute("aria-current");
+    });
+    moveInd(started);
+    if(typeof moveFil==="function"&&id==="projects") setTimeout(function(){moveFil(false)},0);
+    if(typeof observeAll==="function") setTimeout(observeAll,0);
+    nav.classList.remove("open"); btn.setAttribute("aria-expanded","false");
+    window.scrollTo(0,0);
+    document.title=(id==="home"?"":id.charAt(0).toUpperCase()+id.slice(1)+" | ")+"Eco Construction-Build";
+  }
+  // Carousel
+  var car=document.getElementById("carousel"), slides=car.querySelectorAll(".slide"), dots=car.querySelector(".dots"), cur=0, timer;
+  slides.forEach(function(_,i){
+    var d=document.createElement("button"); d.setAttribute("aria-label","Go to slide "+(i+1));
+    d.addEventListener("click",function(){go(i);restart()}); dots.appendChild(d);
+  });
+  function go(n){
+    slides[cur].classList.remove("active"); dots.children[cur].removeAttribute("aria-current");
+    cur=(n+slides.length)%slides.length;
+    slides[cur].classList.add("active"); dots.children[cur].setAttribute("aria-current","true");
+  }
+  function restart(){clearInterval(timer);
+    if(!matchMedia("(prefers-reduced-motion: reduce)").matches) timer=setInterval(function(){go(cur+1)},6000);}
+  car.querySelector(".prev").addEventListener("click",function(){go(cur-1);restart()});
+  car.querySelector(".next").addEventListener("click",function(){go(cur+1);restart()});
+  car.addEventListener("mouseenter",function(){clearInterval(timer)});
+  car.addEventListener("mouseleave",restart);
+  var sx=null;
+  car.addEventListener("touchstart",function(e){sx=e.touches[0].clientX},{passive:true});
+  car.addEventListener("touchend",function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;
+    if(Math.abs(dx)>40){go(cur+(dx<0?1:-1));restart()} sx=null});
+  go(0); restart();
+  window.addEventListener("hashchange",show); show(); started=true;
+  btn.addEventListener("click",function(){
+    var o=nav.classList.toggle("open"); btn.setAttribute("aria-expanded",o); moveInd(false);
+  });
+  // Project tabs: sliding yellow marker, slow then fast
+  var fil=document.querySelector(".filters");
+  var fhl=fil.cloneNode(true);
+  fhl.className="filters-hl"; fhl.removeAttribute("role"); fhl.removeAttribute("aria-label");
+  fhl.setAttribute("aria-hidden","true");
+  fhl.querySelectorAll("button").forEach(function(x){x.setAttribute("tabindex","-1")});
+  fil.appendChild(fhl);
+  function moveFil(animate){
+    var a=fil.querySelector('button[aria-pressed="true"]');
+    if(!a) return;
+    var cr=fhl.getBoundingClientRect(), ar=a.getBoundingClientRect();
+    if(!animate) fhl.classList.add("no-anim");
+    fhl.style.clipPath="inset("+(ar.top-cr.top)+"px "+(cr.right-ar.right)+"px "+(cr.bottom-ar.bottom)+"px "+(ar.left-cr.left)+"px)";
+    if(!animate){ fhl.offsetWidth; fhl.classList.remove("no-anim"); }
+  }
+  window.addEventListener("resize",function(){moveFil(false)});
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){moveFil(false)});
+  moveFil(false);
+  fil.querySelectorAll(":scope > button").forEach(function(b){
+    b.addEventListener("click",function(){
+      fil.querySelectorAll(":scope > button").forEach(function(x){x.setAttribute("aria-pressed","false")});
+      b.setAttribute("aria-pressed","true");
+      moveFil(true);
+      var f=b.dataset.f;
+      document.querySelectorAll("#project-grid .project").forEach(function(p){
+        p.style.display=(f==="all"||p.dataset.c===f)?"":"none";
+      });
+    });
+  });
+  // Reveal sections as they scroll into view: left half from the left, right half from the right
+  function markReveals(page){
+    page.querySelectorAll("section .split > *").forEach(function(el,i){
+      el.classList.add("reveal"); el.style.setProperty("--from",(i%2===0?"-48px":"48px"));
+      el.style.setProperty("--fromY","0px");
+    });
+    page.querySelectorAll("section .grid > *, .steps li, .stats > div, .mosaic > *").forEach(function(el,i){
+      if(el.closest(".split")) return;
+      el.classList.add("reveal");
+      el.style.setProperty("--from",(i%2===0?"-36px":"36px"));
+      el.style.transitionDelay=((i%3)*0.08)+"s";
+    });
+    page.querySelectorAll("section > .wrap > h2").forEach(function(el){el.classList.add("reveal")});
+  }
+  document.querySelectorAll(".page").forEach(markReveals);
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+  },{rootMargin:"0px 0px -10% 0px",threshold:0.08});
+  function observeAll(){document.querySelectorAll(".reveal:not(.in)").forEach(function(el){io.observe(el)})}
+  observeAll();
+
+  var cf=document.getElementById("contact-form"), note=document.getElementById("form-note");
+  cf.addEventListener("submit",function(e){
+    e.preventDefault();
+    var send=cf.querySelector('button[type="submit"]');
+    send.disabled=true; note.textContent="Sending...";
+    fetch(cf.action,{method:"POST",body:new FormData(cf),headers:{"Accept":"application/json"}})
+      .then(function(r){return r.json().catch(function(){return {ok:r.ok}})})
+      .then(function(d){
+        if(d&&d.ok){ note.textContent="Thank you. Your message has been sent and we will reply soon."; cf.reset(); }
+        else { note.textContent=(d&&d.error)||"Sorry, the message could not be sent. Please call us instead."; }
+      })
+      .catch(function(){ note.textContent="Sorry, the message could not be sent. Please call us instead."; })
+      .then(function(){ send.disabled=false; });
+  });
+})();
+</script>
+</body>
+</html>
