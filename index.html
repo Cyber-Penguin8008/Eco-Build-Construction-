@@ -33,7 +33,7 @@ h2{font-size:clamp(2rem,4vw,2.8rem)}
 h3{font-size:1.45rem;font-weight:600}
 p{margin:0 0 1em;max-width:68ch}
 a{color:inherit}
-img{max-width:100%}
+img{max-width:100%;height:auto}
 :focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
 .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
 .skip{position:absolute;left:-9999px;top:0;z-index:20;background:var(--yellow);color:var(--ink);
@@ -68,10 +68,21 @@ nav a{transition:color .15s ease,box-shadow .25s ease,background-color .25s ease
 .nav-hl a,.nav-hl a:hover{color:var(--ink)}
 .nav-hl.no-anim{transition:none}
 @media (prefers-reduced-motion:reduce){.nav-hl{transition:none}}
-.menu-btn{display:none;background:var(--ink);border:1px solid rgba(255,255,255,.35);color:#fff;padding:6px 12px;font:inherit;font-weight:600;cursor:pointer;transition:background-color .25s ease,color .25s ease,border-color .25s ease}
+.menu-btn{display:none;background:var(--ink);border:1px solid rgba(255,255,255,.35);color:#fff;
+  width:44px;height:44px;padding:0;align-items:center;justify-content:center;cursor:pointer;
+  transition:background-color .25s ease,border-color .25s ease,box-shadow .25s ease}
+.bars{display:block;width:22px;height:16px;position:relative}
+.bars i{position:absolute;left:0;right:0;height:2px;background:currentColor;transition:transform .3s ease,opacity .2s ease}
+.bars i:nth-child(1){top:0}
+.bars i:nth-child(2){top:7px}
+.bars i:nth-child(3){top:14px}
+.menu-btn[aria-expanded="true"] .bars i:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-btn[aria-expanded="true"] .bars i:nth-child(2){opacity:0}
+.menu-btn[aria-expanded="true"] .bars i:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 .menu-btn:hover,.menu-btn:focus-visible{background:var(--yellow);border-color:var(--yellow);color:var(--ink)}
+@media (prefers-reduced-motion:reduce){.bars i{transition:none}}
 @media (max-width:760px){
-  .menu-btn{display:block}
+  .menu-btn{display:flex}
   nav{display:none;width:100%;padding-bottom:12px}
   nav.open{display:block}
   nav ul{flex-direction:column}
@@ -232,7 +243,9 @@ footer a:hover{color:#fff;text-shadow:0 0 12px rgba(255,255,255,.6)}
 <header>
   <div class="wrap bar">
     <a class="logo" href="#home" aria-label="Eco Construction-Build, home"><svg viewBox="0 0 132 52" aria-hidden="true"><rect x="92" y="8" width="12" height="22" fill="#F2B705"></rect><polyline points="8,46 66,8 124,46" fill="none" stroke="#F2B705" stroke-width="11" stroke-linecap="square" stroke-linejoin="miter"></polyline></svg><span class="logo-text"><b>ECO</b><small>CONSTRUCTION-BUILD</small></span></a>
-    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav" aria-label="Menu">
+      <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
     <nav id="nav" aria-label="Main">
       <ul>
         <li><a href="#home">Home</a></li>
@@ -448,17 +461,18 @@ footer a:hover{color:#fff;text-shadow:0 0 12px rgba(255,255,255,.6)}
   <section class="light">
     <div class="wrap split" style="align-items:start">
       <div>
-        <h2>Call or email us</h2>
+        <h2>Visit, call or email us</h2>
         <ul class="contact-list">
+          <li><b>Address</b>720 High Road Leyton, London E10 6AA</li>
           <li><b>Areas we cover</b>London and up to 100 miles</li>
           <li><b>Phone</b><a href="tel:+447593003090">07593 003090</a><br><a href="tel:+447495957777">07495 957777</a></li>
           <li><b>Email</b><a href="mailto:ecoconstruction.build@gmail.com">ecoconstruction.build@gmail.com</a></li>
           <li><b>Hours</b>7:30am to 5:30pm</li>
         </ul>
         <div class="map-wrap">
-          <iframe class="map" title="Map of the area we cover" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.openstreetmap.org/export/embed.html?bbox=-0.52%2C51.26%2C0.36%2C51.72&amp;layer=mapnik"></iframe>
-          <p class="note map-note">We work across London and travel up to 100 miles for larger projects.</p>
+          <iframe class="map" title="Map showing where Eco Construction-Build is based" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-0.01425%2C51.57026%2C-0.00225%2C51.57526&amp;layer=mapnik&amp;marker=51.57276%2C-0.008251"></iframe>
+          <p class="note map-note"><a href="https://www.openstreetmap.org/?mlat=51.57276&amp;mlon=-0.008251#map=17/51.57276/-0.00825" target="_blank" rel="noopener">Open the map in a new tab</a></p>
         </div>
       </div>
       <form id="contact-form" action="send.php" method="post">
